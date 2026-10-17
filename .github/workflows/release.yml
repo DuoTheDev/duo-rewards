@@ -45,7 +45,7 @@ jobs:
           printf '\n---\n**Install:** extract `duo-rewards.zip` into your `resources` folder, import `sql/install.sql`, add `ensure duo-rewards` to `server.cfg`.\n' >> RELEASE_NOTES.md
 
       - name: Publish GitHub release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           name: v${{ env.VERSION }}
           body_path: RELEASE_NOTES.md
