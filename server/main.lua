@@ -582,11 +582,12 @@ end
 
 --- Copies rows and tags the ones that are currently live (cached rows must not be mutated).
 local function WithLiveFlags(rows)
+    local showLive = Config.ShowLiveOnLeaderboard ~= false
     local out = {}
     for i, row in ipairs(rows) do
         local copy = {}
         for k, v in pairs(row) do copy[k] = v end
-        local live = LiveStreamers[row.citizenid]
+        local live = showLive and LiveStreamers[row.citizenid] or nil
         if live then
             copy.is_live = true
             copy.viewer_count = live.viewer_count
@@ -608,7 +609,9 @@ local function LoadLeaderboards()
 
     -- Stream board: top streamers plus anyone live right now (so new streamers show up immediately)
     local liveCids = {}
-    for cid in pairs(LiveStreamers) do liveCids[#liveCids + 1] = cid end
+    if Config.ShowLiveOnLeaderboard ~= false then
+        for cid in pairs(LiveStreamers) do liveCids[#liveCids + 1] = cid end
+    end
 
     local where = 'WHERE (lp.total_stream_minutes > 0'
     local params = {}

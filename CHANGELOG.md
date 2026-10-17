@@ -12,7 +12,7 @@ First public release.
 - Official Kick API support (client credentials) with batched channel lookups; the unofficial endpoint remains as an optional fallback.
 - Secrets can be supplied through server convars (`duo_rewards_*`) instead of `config.lua`.
 - `Config.MaxAccountAgeDays` is now enforced (it existed but was never checked).
-- `Config.ReferralBlockMultiCharacter`, `Config.NotifyOnStreamTick`, `Config.TrackingStatusCacheSeconds`, `Config.RewardMoneyType`, `Config.ReferralCarePackage.moneyType`, `Config.PanelTitle`, `Config.FooterText`, `Config.OpenKey`, `Config.Notify` (QBCore or ox_lib notifications).
+- `Config.ReferralBlockMultiCharacter`, `Config.NotifyOnStreamTick`, `Config.ShowLiveOnLeaderboard`, `Config.TrackingStatusCacheSeconds`, `Config.RewardMoneyType`, `Config.ReferralCarePackage.moneyType`, `Config.PanelTitle`, `Config.FooterText`, `Config.OpenKey`, `Config.Notify` (QBCore or ox_lib notifications).
 - `/loyaltyunlink` admin command (works for offline players by citizenid).
 - Server exports: `GetProfile`, `IsPlayerLive`, `GetLiveStreamers`.
 - Key mapping for the open command (bindable in FiveM settings) and a chat suggestion.

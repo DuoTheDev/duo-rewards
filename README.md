@@ -165,6 +165,7 @@ Config.StreamReward = {
 |---|---|---|
 | `LeaderboardMax` | `15` | Rows per leaderboard |
 | `LiveRefreshSeconds` | `10` | Panel auto-refresh interval while open |
+| `ShowLiveOnLeaderboard` | `true` | Show LIVE badges, viewer counts and the Watch button on the leaderboards. Stream tracking keeps working when `false` |
 | `DiscordWebhook` | `''` | Webhook URL (`''` disables logging) |
 | `DiscordBotName` / `DiscordBotAvatar` | | Webhook display name and avatar |
 | `DiscordLogs.*` | mostly `true` | Toggle each event type individually |

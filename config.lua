@@ -130,8 +130,9 @@ Config.ReferralBlockMultiCharacter = true -- Block redemption if the account alr
 -- ============================================================================
 -- LEADERBOARD / UI
 -- ============================================================================
-Config.LeaderboardMax     = 15  -- Max players shown on each leaderboard
-Config.LiveRefreshSeconds = 10  -- How often the panel refreshes its data while open
+Config.LeaderboardMax        = 15   -- Max players shown on each leaderboard
+Config.LiveRefreshSeconds    = 10   -- How often the panel refreshes its data while open
+Config.ShowLiveOnLeaderboard = true -- Show LIVE badges, viewer counts and the Watch button on the leaderboards. Stream tracking still works when false
 
 -- ============================================================================
 -- DISCORD LOGGING
