@@ -1,0 +1,16 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+
+# Logs and build output
+*.log
+*.zip
+build/
+
+# Local-only config overrides (never commit real credentials)
+config.local.lua
+server.cfg

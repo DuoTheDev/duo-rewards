@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: luacheck
+        uses: lunarmodules/luacheck@v1
+        with:
+          args: . --config .luacheckrc --no-color
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: JavaScript syntax
+        run: node --check nui/js/app.js
+
+      - name: Ensure no secrets are committed
+        run: |
+          set -e
+          if grep -rEn "discord(app)?\.com/api/webhooks/[0-9]+/[A-Za-z0-9_-]{20,}" --include='*.lua' --include='*.md' --include='*.cfg' --include='*.js' . ; then
+            echo "::error::A Discord webhook URL is committed. Remove it and rotate the webhook."
+            exit 1
+          fi
+          if grep -En "^\s*(clientId|clientSecret|accessToken)\s*=\s*'[^']+'" config.lua ; then
+            echo "::error::API credentials are committed in config.lua. Remove them and rotate the keys."
+            exit 1
+          fi
+          echo "No secrets found."
+
+      - name: fxmanifest version matches CHANGELOG
+        run: |
+          VER=$(grep -oP "^version\s+'\K[^']+" fxmanifest.lua)
+          if ! grep -q "^## \[$VER\]" CHANGELOG.md; then
+            echo "::error::fxmanifest.lua is version $VER but CHANGELOG.md has no '## [$VER]' entry."
+            exit 1
+          fi
+          echo "Version $VER is documented in CHANGELOG.md."

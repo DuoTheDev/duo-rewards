@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en" style="background:transparent!important;background-color:transparent!important;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewards</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background:transparent!important;background-color:transparent!important;">
+    <div id="app" class="hidden">
+        <div class="panel">
+            <!-- Header with Level Bar -->
+            <div class="panel-header">
+                <div class="header-top">
+                    <div class="panel-brand">
+                        <div class="brand-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </div>
+                        <span class="brand-text" id="brand-text">REWARDS</span>
+                    </div>
+                    <button id="btn-close" class="btn-icon" title="Close (ESC)">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="header-profile">
+                    <div class="profile-avatar" id="profile-avatar" title="Click to change avatar">
+                        <span class="avatar-initial" id="avatar-initial">?</span>
+                        <img class="avatar-img hidden" id="avatar-img" alt="">
+                        <div class="avatar-edit-icon">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        </div>
+                    </div>
+                    <div class="profile-name" id="profile-name"></div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab active" data-tab="stream">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                    </svg>
+                    <span>Stream</span>
+                </button>
+                <button class="tab" data-tab="referrals">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/>
+                    </svg>
+                    <span>Referrals</span>
+                </button>
+                <button class="tab" data-tab="leaderboard">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+                    </svg>
+                    <span>Leaderboard</span>
+                </button>
+                <button class="tab" data-tab="rewards">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6"/><polyline points="12 2 12 12"/><path d="M4.93 10.93l2.83-2.83"/><path d="M19.07 10.93l-2.83-2.83"/><rect x="2" y="10" width="20" height="4" rx="1"/>
+                    </svg>
+                    <span>Rewards</span>
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+
+                <!-- STREAM TAB -->
+                <div id="tab-stream" class="tab-pane active">
+                    <div class="tracking-banner" id="tracking-banner">
+                        <div class="tracking-dot" id="tracking-dot"></div>
+                        <span class="tracking-text" id="tracking-text">Not Tracking</span>
+                        <span class="live-badge hidden" id="live-badge">LIVE</span>
+                    </div>
+
+                    <div class="card" id="twitch-card">
+                        <div class="card-header">
+                            <span class="card-icon purple">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/>
+                                </svg>
+                            </span>
+                            <span class="card-title">Twitch Account</span>
+                        </div>
+                        <div id="twitch-linked" class="hidden">
+                            <div class="twitch-connected">
+                                <span class="twitch-username" id="twitch-name"></span>
+                                <button id="btn-unlink" class="btn btn-ghost btn-xs">Unlink</button>
+                            </div>
+                        </div>
+                        <div id="twitch-unlinked">
+                            <div class="input-row">
+                                <input type="text" id="input-twitch" placeholder="Enter your Twitch username" maxlength="25" spellcheck="false">
+                                <button id="btn-link" class="btn btn-accent">Link</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" id="kick-card">
+                        <div class="card-header">
+                            <span class="card-icon kick-green">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M1.2 2.4h5.4v6.6L12 2.4h6.6l-6.6 7.8L18.6 21.6H12l-5.4-7.2v7.2H1.2z"/>
+                                </svg>
+                            </span>
+                            <span class="card-title">Kick Account</span>
+                        </div>
+                        <div id="kick-linked" class="hidden">
+                            <div class="kick-connected">
+                                <span class="kick-username" id="kick-name"></span>
+                                <button id="btn-unlink-kick" class="btn btn-ghost btn-xs">Unlink</button>
+                            </div>
+                        </div>
+                        <div id="kick-unlinked">
+                            <div class="input-row">
+                                <input type="text" id="input-kick" placeholder="Enter your Kick username" maxlength="25" spellcheck="false">
+                                <button id="btn-link-kick" class="btn btn-kick">Link</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="keyword-card">
+                        <div class="keyword-label">Add this to your stream title</div>
+                        <div class="keyword-value" id="keyword-display">...</div>
+                        <div class="keyword-hint">Must be in your title while connected to earn rewards</div>
+                    </div>
+
+                    <div class="stats-row">
+                        <div class="stat-tile">
+                            <div class="stat-tile-value" id="period-time">0h 0m</div>
+                            <div class="stat-tile-label">This Period</div>
+                        </div>
+                        <div class="stat-tile">
+                            <div class="stat-tile-value" id="total-time">0h 0m</div>
+                            <div class="stat-tile-label">All-Time</div>
+                        </div>
+                        <div class="stat-tile">
+                            <div class="stat-tile-value accent" id="lb-rank">#&mdash;</div>
+                            <div class="stat-tile-label">Rank</div>
+                        </div>
+                        <div class="stat-tile">
+                            <div class="stat-tile-value" id="playtime">0h 0m</div>
+                            <div class="stat-tile-label">Playtime</div>
+                        </div>
+                    </div>
+
+                    <div class="section-label">Stream Activity &mdash; Last 12 Weeks</div>
+                    <div class="activity-grid-wrap">
+                        <div class="activity-months" id="activity-months"></div>
+                        <div class="activity-body">
+                            <div class="activity-days">
+                                <span></span>
+                                <span>Mon</span>
+                                <span></span>
+                                <span>Wed</span>
+                                <span></span>
+                                <span>Fri</span>
+                                <span></span>
+                            </div>
+                            <div class="activity-grid" id="activity-grid-stream"></div>
+                        </div>
+                        <div class="activity-scale">
+                            <span>Less</span>
+                            <div class="activity-cell level-0"></div>
+                            <div class="activity-cell level-1"></div>
+                            <div class="activity-cell level-2"></div>
+                            <div class="activity-cell level-3"></div>
+                            <div class="activity-cell level-4"></div>
+                            <span>More</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- REFERRALS TAB -->
+                <div id="tab-referrals" class="tab-pane">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-icon green">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                </svg>
+                            </span>
+                            <span class="card-title">Your Referral Code</span>
+                        </div>
+                        <div class="referral-code-box" id="referral-code-display">
+                            <span class="code-display" id="my-referral-code">--------</span>
+                            <div class="referral-code-actions">
+                                <button id="btn-edit-code" class="btn btn-ghost btn-xs" title="Edit code (one time only)">Edit</button>
+                                <button id="btn-copy-code" class="btn btn-accent btn-sm">Copy</button>
+                            </div>
+                        </div>
+                        <div class="referral-code-box hidden" id="referral-code-edit">
+                            <input type="text" id="input-custom-code" placeholder="Enter custom code" maxlength="12" spellcheck="false" style="text-transform:uppercase">
+                            <div class="referral-code-actions">
+                                <button id="btn-save-code" class="btn btn-accent btn-sm">Save</button>
+                                <button id="btn-cancel-code" class="btn btn-ghost btn-xs">Cancel</button>
+                            </div>
+                        </div>
+                        <div class="referral-meta">
+                            <div class="meta-item">
+                                <span class="meta-value" id="referral-count">0</span>
+                                <span class="meta-label">Referrals</span>
+                            </div>
+                            <div class="meta-divider"></div>
+                            <div class="meta-item">
+                                <span class="meta-value gold" id="referral-items">0</span>
+                                <span class="meta-label">Earned</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="redeem-section">
+                        <div class="section-label">Redeem a Code</div>
+                        <div id="redeem-available">
+                            <p class="hint-text">New player? Enter a referral code for a free care package!</p>
+                            <div class="input-row">
+                                <input type="text" id="input-referral" placeholder="Enter code" maxlength="20" spellcheck="false">
+                                <button id="btn-redeem" class="btn btn-accent">Redeem</button>
+                            </div>
+                        </div>
+                        <div id="redeem-used" class="hidden">
+                            <div class="hint-card small">Referred by code: <strong id="referred-by-code"></strong></div>
+                            <div id="care-package-pending" class="care-claim-box hidden">
+                                <span class="care-claim-label">Care package claimable in</span>
+                                <span class="care-claim-timer" id="care-claim-timer">--:--</span>
+                            </div>
+                            <div id="care-package-ready" class="hidden">
+                                <button id="btn-claim-care" class="btn btn-green btn-full">Claim Care Package</button>
+                            </div>
+                            <div id="care-package-claimed" class="hidden">
+                                <div class="hint-card small green">Care package claimed!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LEADERBOARD TAB -->
+                <div id="tab-leaderboard" class="tab-pane">
+                    <div class="lb-subtabs">
+                        <button class="lb-subtab active" data-lb="stream">Stream</button>
+                        <button class="lb-subtab" data-lb="playtime">Playtime</button>
+                        <button class="lb-subtab" data-lb="referrals">Referrals</button>
+                    </div>
+
+                    <div id="leaderboard-body">
+                        <div class="lb-empty">No data yet</div>
+                    </div>
+                    <div id="lb-player-row" class="lb-player-section hidden"></div>
+                </div>
+
+                <!-- REWARDS TAB -->
+                <div id="tab-rewards" class="tab-pane">
+                    <div class="section-label">Next Rewards</div>
+
+                    <div class="reward-tracker" id="reward-tracker-stream">
+                        <div class="reward-tracker-header">
+                            <div class="reward-tracker-icon purple">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                            </div>
+                            <div class="reward-tracker-info">
+                                <div class="reward-tracker-title">Stream Reward</div>
+                                <div class="reward-tracker-sub" id="reward-stream-sub">Every 60 min streamed</div>
+                            </div>
+                            <div class="reward-tracker-prize" id="reward-stream-prize">—</div>
+                        </div>
+                        <div class="reward-tracker-progress">
+                            <div class="reward-progress-track">
+                                <div class="reward-progress-fill purple" id="reward-stream-fill" style="width:0%"></div>
+                            </div>
+                            <div class="reward-tracker-remaining" id="reward-stream-remaining">-- min left</div>
+                        </div>
+                    </div>
+
+                    <div class="reward-tracker" id="reward-tracker-playtime">
+                        <div class="reward-tracker-header">
+                            <div class="reward-tracker-icon green">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            </div>
+                            <div class="reward-tracker-info">
+                                <div class="reward-tracker-title">Playtime Reward</div>
+                                <div class="reward-tracker-sub" id="reward-playtime-sub">Every 120 min played</div>
+                            </div>
+                            <div class="reward-tracker-prize" id="reward-playtime-prize">—</div>
+                        </div>
+                        <div class="reward-tracker-progress">
+                            <div class="reward-progress-track">
+                                <div class="reward-progress-fill green" id="reward-playtime-fill" style="width:0%"></div>
+                            </div>
+                            <div class="reward-tracker-remaining" id="reward-playtime-remaining">-- min left</div>
+                        </div>
+                    </div>
+
+                    <div class="reward-tracker" id="reward-tracker-referral">
+                        <div class="reward-tracker-header">
+                            <div class="reward-tracker-icon gold">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                            </div>
+                            <div class="reward-tracker-info">
+                                <div class="reward-tracker-title">Referral Reward</div>
+                                <div class="reward-tracker-sub" id="reward-referral-sub">Every 5 referrals</div>
+                            </div>
+                            <div class="reward-tracker-prize" id="reward-referral-prize">—</div>
+                        </div>
+                        <div class="reward-tracker-progress">
+                            <div class="reward-progress-track">
+                                <div class="reward-progress-fill gold" id="reward-referral-fill" style="width:0%"></div>
+                            </div>
+                            <div class="reward-tracker-remaining" id="reward-referral-remaining">-- more needed</div>
+                        </div>
+                    </div>
+
+                    <div class="reward-tracker" id="reward-tracker-refplaytime">
+                        <div class="reward-tracker-header">
+                            <div class="reward-tracker-icon blue">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><circle cx="18" cy="12" r="3"/><polyline points="18 10.5 18 12 19 12.5"/></svg>
+                            </div>
+                            <div class="reward-tracker-info">
+                                <div class="reward-tracker-title">Referral Playtime</div>
+                                <div class="reward-tracker-sub" id="reward-refplaytime-sub">Every 60 min your referrals play</div>
+                            </div>
+                            <div class="reward-tracker-prize" id="reward-refplaytime-prize">—</div>
+                        </div>
+                        <div class="reward-tracker-progress">
+                            <div class="reward-progress-track">
+                                <div class="reward-progress-fill blue" id="reward-refplaytime-fill" style="width:0%"></div>
+                            </div>
+                            <div class="reward-tracker-remaining" id="reward-refplaytime-remaining">-- min left</div>
+                        </div>
+                    </div>
+
+                    <div class="section-label" style="margin-top:12px">Reward History</div>
+                    <div id="reward-history" class="reward-history">
+                        <div class="lb-empty">No rewards yet</div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Footer -->
+            <div class="panel-footer">
+                <span class="footer-credit" id="footer-credit">Made by Duo</span>
+            </div>
+        </div>
+        <!-- Player Preview Modal -->
+        <div id="player-preview" class="player-preview-modal hidden">
+            <div class="player-preview-card">
+                <button id="btn-close-preview" class="btn-icon preview-close">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+                <div class="preview-avatar" id="preview-avatar">
+                    <span class="preview-avatar-initial" id="preview-avatar-initial">?</span>
+                    <img class="preview-avatar-img hidden" id="preview-avatar-img" alt="">
+                </div>
+                <div class="preview-name" id="preview-name"></div>
+                <div class="preview-platforms">
+                    <div class="preview-twitch hidden" id="preview-twitch">
+                        <svg class="twitch-icon" viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg>
+                        <span id="preview-twitch-name"></span>
+                    </div>
+                    <div class="preview-kick hidden" id="preview-kick">
+                        <svg class="kick-icon" viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M1.2 2.4h5.4v6.6L12 2.4h6.6l-6.6 7.8L18.6 21.6H12l-5.4-7.2v7.2H1.2z"/></svg>
+                        <span id="preview-kick-name"></span>
+                    </div>
+                </div>
+                <div class="preview-live hidden" id="preview-live">
+                    <span class="preview-live-dot" id="preview-live-dot"></span>
+                    <span class="preview-live-text" id="preview-live-label">LIVE</span>
+                    <span class="preview-live-viewers" id="preview-viewers"></span>
+                </div>
+                <button class="btn btn-accent btn-sm hidden" id="btn-watch-stream">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    Watch
+                </button>
+                <div class="preview-stats">
+                    <div class="preview-stat">
+                        <span class="preview-stat-value purple" id="preview-stream">0h 00m</span>
+                        <span class="preview-stat-label">Stream Time</span>
+                    </div>
+                    <div class="preview-stat">
+                        <span class="preview-stat-value green" id="preview-playtime">0h 00m</span>
+                        <span class="preview-stat-label">Playtime</span>
+                    </div>
+                    <div class="preview-stat">
+                        <span class="preview-stat-value gold" id="preview-referrals">0</span>
+                        <span class="preview-stat-label">Referrals</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Avatar URL Modal -->
+        <div id="avatar-modal" class="avatar-modal hidden">
+            <div class="avatar-modal-card">
+                <div class="avatar-modal-title">Change Avatar</div>
+                <p class="avatar-modal-hint">Paste a direct image URL (png, jpg, gif, webp)</p>
+                <div class="input-row">
+                    <input type="text" id="input-avatar-url" placeholder="https://i.imgur.com/..." maxlength="500" spellcheck="false">
+                    <button id="btn-save-avatar" class="btn btn-accent">Save</button>
+                </div>
+                <div class="avatar-modal-preview hidden" id="avatar-preview-wrap">
+                    <img id="avatar-preview-img" class="avatar-preview-img" alt="Preview">
+                </div>
+                <div class="avatar-modal-actions">
+                    <button id="btn-remove-avatar" class="btn btn-ghost btn-xs">Remove Avatar</button>
+                    <button id="btn-cancel-avatar" class="btn btn-ghost btn-xs">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

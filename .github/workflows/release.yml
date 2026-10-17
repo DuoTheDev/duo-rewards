@@ -1,0 +1,54 @@
+name: Release
+
+# Push a tag like v1.2.0 to publish a release with a ready-to-drop-in zip:
+#   git tag v1.2.0 && git push origin v1.2.0
+# The tag must match `version` in fxmanifest.lua and have a CHANGELOG entry.
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build & publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify tag matches fxmanifest version
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          VER=$(grep -oP "^version\s+'\K[^']+" fxmanifest.lua)
+          if [ "$TAG" != "$VER" ]; then
+            echo "::error::Tag v$TAG does not match fxmanifest.lua version $VER"
+            exit 1
+          fi
+          echo "VERSION=$VER" >> "$GITHUB_ENV"
+
+      - name: Build resource archive
+        # git archive honours the export-ignore rules in .gitattributes, so the zip
+        # contains only the files a server needs, inside a duo-rewards/ folder.
+        run: git archive --format=zip --prefix=duo-rewards/ -o duo-rewards.zip "$GITHUB_SHA"
+
+      - name: Extract release notes from CHANGELOG
+        run: |
+          awk -v ver="$VERSION" '
+            /^## \[/ { if (found) exit; if (index($0, "[" ver "]")) { found = 1; next } }
+            found { print }
+          ' CHANGELOG.md > RELEASE_NOTES.md
+          if [ ! -s RELEASE_NOTES.md ]; then
+            echo "No CHANGELOG entry found for $VERSION, using auto-generated notes." > RELEASE_NOTES.md
+          fi
+          printf '\n---\n**Install:** extract `duo-rewards.zip` into your `resources` folder, import `sql/install.sql`, add `ensure duo-rewards` to `server.cfg`.\n' >> RELEASE_NOTES.md
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: v${{ env.VERSION }}
+          body_path: RELEASE_NOTES.md
+          files: duo-rewards.zip
+          generate_release_notes: true
+          prerelease: ${{ contains(github.ref_name, '-') }}
